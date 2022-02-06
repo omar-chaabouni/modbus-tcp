@@ -1,0 +1,80 @@
+<!doctype html>
+<head>
+<title>{% block title %}{% endblock %} - pyModbus</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+<style>
+    .alert-msg {
+      padding: 8px;
+      background-color: lightgreen;
+      color: white;
+    }
+  </style>
+</head>
+<body class='container'>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+      <span>{{ message }}</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+      </button>
+  </div>
+{% endfor %}
+  {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+
+
+
+<form method="post" action="/">
+  <br>
+
+  <h3>Client</h3>
+  
+    <div class="form-group">
+      <label for="Command">Command</label>
+      <input name="InputData" type="text" class="form-control" id="command" aria-describedby="modbus" placeholder="enter modbus command">
+      <small id="modbus" class="form-text text-muted">Please enter an hexadecimal command</small>
+    </div>
+
+    <div class="col-auto">
+      <!-- <input type="submit" name='read' value={{modbus_actions}} class="btn btn-primary mt-4"> -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
+<!-- <form>
+  <div class="form-row align-items-center mt-3 mb-5">
+    <textarea class="form-control" rows="4" >
+      {% if data != None %}
+      {{data}}
+      {%else%} 
+      Output Read Here
+      {%endif%}
+    </textarea>
+  </div>
+</form> -->
+
+<hr>
+<form method="post" action="/">
+  <h3>Server output</h3>
+  
+
+    <div class="form-row align-items-center mt-3 mb-5">
+      <textarea class="form-control" rows="4" >
+        {% if data != None %}
+        {{data}}
+        {%else%} 
+        Output Read Here
+        {%endif%}
+      </textarea>
+
+</form>
+
+
+<script  src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script  src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+<script  src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+
+</body>
